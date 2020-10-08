@@ -22,6 +22,7 @@ if (isset($_GET['md5'])) {
 
   $dig = "0123456789";
   $count = 20;
+  $len = strlen($dig);
   
   for ($i=0; $i < $len; $i++) { 
     $fir = $dig[$i];
@@ -54,14 +55,20 @@ if (isset($_GET['md5'])) {
   }
 
   $time_post = microtime(true);
+  print "Time elapsed: ";
+  print $time_post - $time_pre;
+  print("\n");
 
 }
 ?>
 </pre>
 
+<?php echo "PIN: " . $message?>
  <form method="GET">
  <input type="text" name="md5" size="40">
  <input type="submit" value="Crack MD5">
  </form>
+<br>
+ <a href="md5creator.php">Create MD5 hash</a>
 </body>
 </html>
