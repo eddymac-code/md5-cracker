@@ -11,6 +11,54 @@
  checks the hash against 10,000 possible 4-digit pins, and
  returns the correct pin</p>
 
+<pre>
+Debug output:
+<?php
+$message = "Not found"; // Default message when no parameters are detected
+
+if (isset($_GET['md5'])) {
+  $time_pre = microtime(true); // Will start the countdown to get the time elapsed
+  $md5 = $_GET['md5'];
+
+  $dig = "0123456789";
+  $count = 20;
+  
+  for ($i=0; $i < $len; $i++) { 
+    $fir = $dig[$i];
+
+    for ($j=0; $j < $len; $j++) { 
+      $sec = $dig[$j];
+
+      for ($k=0; $k < $len; $k++) { 
+        $thd = $dig[$k];
+
+        for ($l=0; $l < $len; $l++) { 
+          $fth = $dig[$l];
+
+          $dec = $fir . $sec . $thd . $fth;
+
+          $enc = hash('md5', $dec);
+
+          if ($md5 == $enc) {
+            $message = $dec;
+          break;
+          }
+
+          if ($count > 0) {
+            echo "$enc $dec\n";
+            $count = $count - 1;
+          }
+        }
+      }
+    }
+  }
+
+  $time_post = microtime(true);
+
+}
+?>
+</pre>
+
  <form method="GET">
  <input type="text" name="md5" size="40">
  <input type="submit" value="Crack MD5">
